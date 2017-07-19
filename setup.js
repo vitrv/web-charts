@@ -1,4 +1,5 @@
 var chart_types= ["Scatter", "Map", "Bar"];
+var labels = [];
 var select = document.getElementById('type');
 
 
@@ -32,15 +33,24 @@ var createCORSRequest = function(method, url) {
 var url = 'https://redcap.uthscsa.edu/REDCap/api/';
 var method = 'POST';
 var xhr = createCORSRequest(method, url);
-var data = "token=" + api_key + "&content=exportFieldNames&format=json" 
+var data = "token=" + api_key + "&content=metadata&format=json" 
+var metadata = [];
 
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 xhr.onload = function() {
   // Success code goes here.
-  console.log("hey");
-  console.log(xhr.status);
+  //console.log(xhr.status);
   console.log(xhr.responseText);
+  metadata = JSON.parse(xhr.responseText);
+  //console.log(metadata[0]);
+
+  for (var i in metadata){
+  	var z = {'label': metadata[i]['field_label'], 'name':  metadata[i]['field_name'] ,'type':  metadata[i]['field_type']  };
+  	labels.push(z);
+  }
+
+  //console.log(labels);
 };
 
 xhr.onerror = function() {
