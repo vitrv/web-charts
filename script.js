@@ -12,7 +12,35 @@ var width = 500;
 var height= 500;
 var margin = 80;
 
+//Table 
+function draw_table(x, y){
 
+	var div = document.getElementById('table');
+	var table = document.createElement("table");
+
+	var header = document.createElement("tr");
+	var hx = document.createElement("th");
+	var hy = document.createElement("th");
+
+	hx.innerHTML = "x";
+    hy.innerHTML = "y";
+	header.appendChild(hx);
+	header.appendChild(hy);
+	table.appendChild(header);
+
+	for (var i in x) {
+		var tr = document.createElement("tr");
+		var tx = document.createElement("td");
+		var ty = document.createElement("td");
+
+        tx.innerHTML = x[i];
+        ty.innerHTML = y[i];
+		tr.appendChild(tx);
+		tr.appendChild(ty);
+		table.appendChild(tr);
+	}
+	div.appendChild(table);
+}
 
 //scatterplot class
 function Scatter(){
@@ -25,6 +53,8 @@ Scatter.prototype.valid = function() {
 };
 
 Scatter.prototype.draw = function(){
+	draw_table(this.xvector, this.yvector);
+
 	var svg = d3.select('svg')
 			.attr("width", width)
 			.attr("height", height);
