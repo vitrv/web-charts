@@ -42,13 +42,31 @@ function draw_table(x, y){
 	div.appendChild(table);
 }
 
+//datavector class
+function DataVector(name, callback){
+	this.data = [];
+	this.name = name;
+	this.type = null;
+	this.callback = callback;
+}
+DataVector.prototype.setup = function(){
+
+}
+DataVector.prototype.setdata = function(){
+
+}
+
+
 //scatterplot class
 function Scatter(){
 	this.xvector = null;
 	this.yvector = null;
 }
 Scatter.prototype.valid = function() {
-	if (this.xvector != null && this.yvector != null) return true;
+	if (this.xvector != null && this.yvector != null) {
+		chart.draw();
+		return true;
+	}
 	return false;
 };
 
@@ -108,6 +126,7 @@ Scatter.prototype.setup_chart = function() {
 
 };
 
+//Clear p2 div
 function clear(){
 	var list = document.getElementById('p2');
 
@@ -115,7 +134,7 @@ function clear(){
     	list.removeChild(list.firstChild);
 	}
 }
-
+//Handler for chart select menu
 function select_chart(){
 	var type = document.getElementById("type").value;
 
@@ -149,16 +168,16 @@ function ask(l, k, callback){
 
 
 
-
+//temporary functions
 function setX(){
 	var choice = document.getElementById("setX()").value; //this is awkward??
 	chart.xvector = data[choice];
-	if (chart.valid()) chart.draw();
+	chart.valid();
 }
 function setY(){
 	var choice = document.getElementById("setY()").value;
 	chart.yvector = data[choice];
-	if (chart.valid()) chart.draw();
+	chart.valid();
 }
 
 

@@ -2,7 +2,7 @@ var chart_types= ["Scatter", "Map", "Bar"];
 var labels = [];
 var select = document.getElementById('type');
 var api_url = 'https://redcap.uthscsa.edu/REDCap/api/';
-var api_key = '85756E00F50FA35FC6532742FAF10B79';
+var api_key = 'insert api key here';
 
 var createCORSRequest = function(method, url) {
 	var xhr = new XMLHttpRequest();

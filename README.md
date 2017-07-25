@@ -11,3 +11,5 @@ TODO:
 	-add table functionality
 	-add redcap data
 	-make a class diagram at some point
+	-move api key to separate module for safety
+	-write tests?
