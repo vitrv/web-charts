@@ -1,8 +1,10 @@
+
 var chart_types= ["Scatter", "Map", "Bar"];
 var labels = [];
 var select = document.getElementById('type');
 var api_url = 'https://redcap.uthscsa.edu/REDCap/api/';
 var api_key = 'insert api key here';
+
 
 var createCORSRequest = function(method, url) {
 	var xhr = new XMLHttpRequest();
@@ -90,9 +92,9 @@ for (var i = 0; i < chart_types.length; i++) {
 	select.add(option);
 }
 
+
 //index_db();
 //console.log(labels);
-
 //read_data();
 
 

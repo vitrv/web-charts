@@ -1,4 +1,5 @@
 //global chart reference
+var script;
 var chart = null;
 
 //Test data sets
@@ -16,6 +17,12 @@ var margin = 80;
 function draw_table(x, y){
 
 	var div = document.getElementById('table');
+
+	//clear existing tables
+	while (div.hasChildNodes()) {   
+    	div.removeChild(div.firstChild);
+	}
+
 	var table = document.createElement("table");
 
 	var header = document.createElement("tr");
@@ -43,17 +50,45 @@ function draw_table(x, y){
 }
 
 //datavector class
-function DataVector(name, callback){
-	this.data = [];
+function DataVector(name){
+	this.data = null;
 	this.name = name;
 	this.type = null;
-	this.callback = callback;
+	this.view_obj = null;
+	this.setup();
 }
 DataVector.prototype.setup = function(){
-
+	var param = document.getElementById('p2');
+	sel = sl(this.name, data);    
+    param.appendChild(sel);
+    this.view_obj = sel;
+    sel.pair = this;
+    
+    sel.oninput = this.setdata;
 }
 DataVector.prototype.setdata = function(){
+	this.pair.data = data[this.value];
+	chart.valid();
+}
+DataVector.prototype.at = function(i){ //fix
+	console.log(this.data[i]);
+	this.data[i];
+}
+DataVector.prototype.len = function(){ //fix
+	this.data.length;
+}
 
+function sl(l, k){
+	var select = document.createElement("select");
+    var label = document.createElement("option");
+	label.text = l;
+	select.add(label);
+    for (var key in k) {
+		var option = document.createElement("option");
+		option.text = key;
+		select.add(option);
+	}
+	return select; 
 }
 
 
@@ -63,7 +98,7 @@ function Scatter(){
 	this.yvector = null;
 }
 Scatter.prototype.valid = function() {
-	if (this.xvector != null && this.yvector != null) {
+	if (this.xvector.data != null && this.yvector.data != null) {
 		chart.draw();
 		return true;
 	}
@@ -71,15 +106,16 @@ Scatter.prototype.valid = function() {
 };
 
 Scatter.prototype.draw = function(){
-	draw_table(this.xvector, this.yvector);
+	draw_table(this.xvector.data, this.yvector.data);
 
 	var svg = d3.select('svg')
 			.attr("width", width)
 			.attr("height", height);
 
 	var chart_data = [];
-	for (var i = 0; i < this.xvector.length; i++) {
-		chart_data.push({"x": this.xvector[i], "y": this.yvector[i]});
+
+	for (var i = 0; i < this.xvector.data.length; i++) {
+		chart_data.push({"x": this.xvector.data[i], "y": this.yvector.data[i]});
 	}
 
 	var x = d3.scaleLinear().range([margin, width - margin]);
@@ -112,17 +148,8 @@ Scatter.prototype.draw = function(){
 //function to set up scatterplot, need to prevent memory leaks?
 //need more elegant/intuitive param prompts at some point
 Scatter.prototype.setup_chart = function() {
-	("cx", function(d){return d})
-    var param = document.getElementById('p2');
-    var br = document.createElement("br");
-
-    selx = ask("X Vector", data, "setX()");    
-
-    param.appendChild(br);
-    param.appendChild(selx);
-
-    sely = ask("Y Vector", data, "setY()");  
-    param.appendChild(sely);  
+	this.xvector = new DataVector("X Vector");
+	this.yvector = new DataVector("Y Vector");
 
 };
 
@@ -134,53 +161,17 @@ function clear(){
     	list.removeChild(list.firstChild);
 	}
 }
-//Handler for chart select menu
+//Handler for chart select menu, entry point
 function select_chart(){
 	var type = document.getElementById("type").value;
 
 	clear();
 	if (type == "Scatter") {
 		chart = new Scatter();
+	}
+	if (chart != null)
 		chart.setup_chart();
-	}
 }
-
-//create a select object populated with choices
-function ask(l, k, callback){
-	var select = document.createElement("select");
-    
-
-    var label = document.createElement("option");
-	label.text = l;
-	select.add(label);
-
-    for (var key in k) {
-
-		var option = document.createElement("option");
-		option.text = key;
-		select.add(option);
-	}
-
-	select.setAttribute("oninput", callback);
-	select.setAttribute("id", callback); 
-	return select; 
-}
-
-
-
-//temporary functions
-function setX(){
-	var choice = document.getElementById("setX()").value; //this is awkward??
-	chart.xvector = data[choice];
-	chart.valid();
-}
-function setY(){
-	var choice = document.getElementById("setY()").value;
-	chart.yvector = data[choice];
-	chart.valid();
-}
-
-
 
 
 
