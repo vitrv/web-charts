@@ -52,8 +52,11 @@ function draw_table(x, y){
 //datavector class
 function DataVector(name){
 	this.data = null;
+	this.ids = null;
+	this.eventnames = null;
+	this.fieldname = null;
+
 	this.name = name;
-	this.type = null;
 	this.view_obj = null;
 	this.setup();
 }

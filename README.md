@@ -10,6 +10,7 @@ TODO:
 	-refactor code to be less terrible
 	-add table functionality
 	-add redcap data
+	-add chart interactivity, (mouseover points) for clarity
 	-make a class diagram at some point
 	-move api key to separate module for safety
 	-write tests?
