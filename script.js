@@ -1,12 +1,5 @@
 //global chart reference
-var script;
 var chart = null;
-
-//Test data sets
-var a = [1, 2, 4, 5, 6, 7, 8];
-var b = [1, 4, 17, 30, 70, 140, 220];
-var c = [1, 0, 1, 0, 0, 1, 1];
-var data = {'a': a, 'b': b, 'c':c};
 
 //canvas info
 var width = 500;
@@ -14,7 +7,9 @@ var height= 500;
 var margin = 80;
 
 //Table 
-function draw_table(x, y){
+function draw_table(data){
+
+	//console.log(data);
 
 	var div = document.getElementById('table');
 
@@ -24,36 +19,35 @@ function draw_table(x, y){
 	}
 
 	var table = document.createElement("table");
-
 	var header = document.createElement("tr");
-	var hx = document.createElement("th");
-	var hy = document.createElement("th");
 
-	hx.innerHTML = "x";
-    hy.innerHTML = "y";
-	header.appendChild(hx);
-	header.appendChild(hy);
+    for (var key in data[0]){
+		var h = document.createElement("th");
+		h.innerHTML = key;
+		header.appendChild(h);
+	}
 	table.appendChild(header);
 
-	for (var i in x) {
-		var tr = document.createElement("tr");
-		var tx = document.createElement("td");
-		var ty = document.createElement("td");
+	for (var i in data) {
+		 //console.log(data[i]);
 
-        tx.innerHTML = x[i];
-        ty.innerHTML = y[i];
-		tr.appendChild(tx);
-		tr.appendChild(ty);
+		var tr = document.createElement("tr");
+		for (var key in data[i]) {
+			//console.log(i);
+			var td = document.createElement("td");
+        	td.innerHTML = data[i][key];
+			tr.appendChild(td);
+		}
+
 		table.appendChild(tr);
 	}
+
 	div.appendChild(table);
 }
 
 //datavector class
 function DataVector(name){
 	this.data = null;
-	this.ids = null;
-	this.eventnames = null;
 	this.fieldname = null;
 
 	this.name = name;
@@ -62,7 +56,7 @@ function DataVector(name){
 }
 DataVector.prototype.setup = function(){
 	var param = document.getElementById('p2');
-	sel = sl(this.name, data);    
+	sel = sl(this.name);    
     param.appendChild(sel);
     this.view_obj = sel;
     sel.pair = this;
@@ -70,8 +64,9 @@ DataVector.prototype.setup = function(){
     sel.oninput = this.setdata;
 }
 DataVector.prototype.setdata = function(){
-	this.pair.data = data[this.value];
-	chart.valid();
+	this.pair.fieldname = this.value;
+	read_data(this.value, this.pair);
+	//chart.valid();
 }
 DataVector.prototype.at = function(i){ //fix
 	console.log(this.data[i]);
@@ -81,12 +76,12 @@ DataVector.prototype.len = function(){ //fix
 	this.data.length;
 }
 
-function sl(l, k){
+function sl(l){
 	var select = document.createElement("select");
     var label = document.createElement("option");
 	label.text = l;
 	select.add(label);
-    for (var key in k) {
+    for (var key in labels) {
 		var option = document.createElement("option");
 		option.text = key;
 		select.add(option);
@@ -99,6 +94,10 @@ function sl(l, k){
 function Scatter(){
 	this.xvector = null;
 	this.yvector = null;
+
+	this.xlabel = 'x axis';
+	this.ylabel = 'y axis';
+	this.title  = 'title';
 }
 Scatter.prototype.valid = function() {
 	if (this.xvector.data != null && this.yvector.data != null) {
@@ -109,23 +108,31 @@ Scatter.prototype.valid = function() {
 };
 
 Scatter.prototype.draw = function(){
-	draw_table(this.xvector.data, this.yvector.data);
+
+	alasql("CREATE TABLE xvector (" + this.xvector.fieldname + " INT, event string, id INT)");
+	alasql("CREATE TABLE yvector ("+ this.yvector.fieldname +  " INT, event string, id INT)");
+
+	alasql.tables.xvector.data = this.xvector.data;
+	alasql.tables.yvector.data = this.yvector.data;
+
+	var chart_data = alasql("SELECT * FROM xvector NATURAL JOIN yvector");
+	//console.log(chart_data);
+
+	draw_table(chart_data);
 
 	var svg = d3.select('svg')
 			.attr("width", width)
 			.attr("height", height);
 
-	var chart_data = [];
-
-	for (var i = 0; i < this.xvector.data.length; i++) {
-		chart_data.push({"x": this.xvector.data[i], "y": this.yvector.data[i]});
-	}
 
 	var x = d3.scaleLinear().range([margin, width - margin]);
 	var y = d3.scaleLinear().range([height - margin, margin]);
 
-	x.domain(d3.extent(chart_data, function(d) { return d.x; }));
-	y.domain(d3.extent(chart_data, function(d) { return d.y; }));
+	var xname = this.xvector.fieldname;
+	var yname = this.yvector.fieldname;
+
+	x.domain(d3.extent(chart_data, function(d) { return parseFloat(d[xname]); }));
+	y.domain(d3.extent(chart_data, function(d) { return parseFloat(d[yname]); }));
 
 
     d3.selectAll("g").remove(); //clear axises
@@ -144,8 +151,8 @@ Scatter.prototype.draw = function(){
     circle.enter().append("circle")
     	.attr("r", 2.5)
     	.merge(circle)
-    	.attr("cx", function(d){return x(d.x) })
-    	.attr("cy", function(d){return y(d.y) });	
+    	.attr("cx", function(d){return x( parseFloat(d[xname])) })
+    	.attr("cy", function(d){return y( parseFloat(d[yname])) });	
 };
 
 //function to set up scatterplot, need to prevent memory leaks?

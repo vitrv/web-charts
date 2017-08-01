@@ -1,4 +1,5 @@
 var labels = {};
+var chart = null;
 
 var createCORSRequest = function(method, url) {
 	var xhr = new XMLHttpRequest();
@@ -33,11 +34,13 @@ function index_db() {
 		//console.log(metadata[0]);
 
 		for (var i in metadata){
-  			var z = {'label': metadata[i]['field_label'], 'name':  metadata[i]['field_name'] ,'type':  metadata[i]['field_type']  };
-  			labels[metadata[i]['field_name']] = z;
-  			//labels.push(z);
+			if ( metadata[i]['field_type'] != "notes"){
+  				var z = {'label': metadata[i]['field_label'], 'name':  metadata[i]['field_name'] ,'type':  metadata[i]['field_type']  };
+  				labels[metadata[i]['field_name']] = z;
+  				//labels.push(z);
+  			}
   		}
-  		console.log(labels);
+  		//console.log(labels);
 	};
 
 	xhr.onerror = function() {
@@ -49,7 +52,7 @@ function index_db() {
 
 }
 
-function read_data(field_name) {
+function read_data(field_name, obj) {
 
 	var method = 'POST';
 	var xhr = createCORSRequest(method, api_url);
@@ -63,13 +66,21 @@ function read_data(field_name) {
 		//console.log(xhr.status);
 		//console.log(xhr.responseText);
 		records = JSON.parse(xhr.responseText);
-		console.log(records);
 
-		/*for (var i in records){
-  			var z = {'label': metadata[i]['field_label'], 'name':  metadata[i]['field_name'] ,'type':  metadata[i]['field_type']  };
-  			labels.push(z);
-  		}*/
+		obj.data = [];
 
+		var string = "aa";
+		
+		for (var i in records){
+			if( records[i][field_name] != null &&  records[i][field_name] != ""){
+  				var z = {'id': records[i]['participant_id'] ,'event':  records[i]['redcap_event_name']  };
+  				z[field_name] = records[i][field_name]
+  				obj.data.push(z);
+  			}
+  		}
+  		chart.valid();
+  		//console.log(data_vector);
+  		//return data_vector;
 	};
 
 	xhr.onerror = function() {

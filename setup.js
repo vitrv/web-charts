@@ -8,7 +8,7 @@ for (var i = 0; i < chart_types.length; i++) {
 	select.add(option);
 }
 
-//index_db();
+index_db();
 
 //read_data("anthro_bmi");
 //read_data("age_yrs");
