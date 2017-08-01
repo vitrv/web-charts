@@ -68,8 +68,6 @@ function read_data(field_name, obj) {
 		records = JSON.parse(xhr.responseText);
 
 		obj.data = [];
-
-		var string = "aa";
 		
 		for (var i in records){
 			if( records[i][field_name] != null &&  records[i][field_name] != ""){

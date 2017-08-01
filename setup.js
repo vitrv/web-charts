@@ -8,6 +8,7 @@ for (var i = 0; i < chart_types.length; i++) {
 	select.add(option);
 }
 
+alasql.options.cache = false;
 index_db();
 
 //read_data("anthro_bmi");

@@ -1,4 +1,7 @@
+Interactive Chart Creator for RedCap Data with Javascript/D3
+
 TODO:
+	
 	-add chart interactivity, (mouseover points) for clarity
 
 	-add titles and axis labels
@@ -11,4 +14,10 @@ TODO:
 
 	-support for uploaded data
 
-	-
+	-more robust data handling
+
+	-add support for multiple datasets
+
+	-add other kinds of charts
+
+	-add option to scale axes

@@ -66,7 +66,6 @@ DataVector.prototype.setup = function(){
 DataVector.prototype.setdata = function(){
 	this.pair.fieldname = this.value;
 	read_data(this.value, this.pair);
-	//chart.valid();
 }
 DataVector.prototype.at = function(i){ //fix
 	console.log(this.data[i]);
@@ -109,15 +108,23 @@ Scatter.prototype.valid = function() {
 
 Scatter.prototype.draw = function(){
 
-	alasql("CREATE TABLE xvector (" + this.xvector.fieldname + " INT, event string, id INT)");
-	alasql("CREATE TABLE yvector ("+ this.yvector.fieldname +  " INT, event string, id INT)");
+	console.log(alasql.databases);	
+
+	var xname = this.xvector.fieldname;
+	var yname = this.yvector.fieldname;
+
+	alasql("CREATE TABLE xvector (" + xname + " INT, event string, id INT)");
+	alasql("CREATE TABLE yvector (" + yname +  " INT, event string, id INT)");
 
 	alasql.tables.xvector.data = this.xvector.data;
 	alasql.tables.yvector.data = this.yvector.data;
 
 	var chart_data = alasql("SELECT * FROM xvector NATURAL JOIN yvector");
-	//console.log(chart_data);
 
+	alasql("DROP TABLE xvector");
+	alasql("DROP TABLE yvector");
+
+	
 	draw_table(chart_data);
 
 	var svg = d3.select('svg')
@@ -128,12 +135,8 @@ Scatter.prototype.draw = function(){
 	var x = d3.scaleLinear().range([margin, width - margin]);
 	var y = d3.scaleLinear().range([height - margin, margin]);
 
-	var xname = this.xvector.fieldname;
-	var yname = this.yvector.fieldname;
-
 	x.domain(d3.extent(chart_data, function(d) { return parseFloat(d[xname]); }));
 	y.domain(d3.extent(chart_data, function(d) { return parseFloat(d[yname]); }));
-
 
     d3.selectAll("g").remove(); //clear axises
 
