@@ -21,3 +21,5 @@ TODO:
 	-add other kinds of charts
 
 	-add option to scale axes
+
+	-add option to scale chart

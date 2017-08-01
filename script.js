@@ -9,8 +9,6 @@ var margin = 80;
 //Table 
 function draw_table(data){
 
-	//console.log(data);
-
 	var div = document.getElementById('table');
 
 	//clear existing tables
@@ -29,11 +27,9 @@ function draw_table(data){
 	table.appendChild(header);
 
 	for (var i in data) {
-		 //console.log(data[i]);
 
 		var tr = document.createElement("tr");
 		for (var key in data[i]) {
-			//console.log(i);
 			var td = document.createElement("td");
         	td.innerHTML = data[i][key];
 			tr.appendChild(td);
@@ -108,8 +104,6 @@ Scatter.prototype.valid = function() {
 
 Scatter.prototype.draw = function(){
 
-	console.log(alasql.databases);	
-
 	var xname = this.xvector.fieldname;
 	var yname = this.yvector.fieldname;
 
@@ -139,6 +133,7 @@ Scatter.prototype.draw = function(){
 	y.domain(d3.extent(chart_data, function(d) { return parseFloat(d[yname]); }));
 
     d3.selectAll("g").remove(); //clear axises
+    d3.selectAll("circle").remove(); //clear points
 
     svg.append("g")
     .attr("transform", "translate(0," + (height - margin) + ")")
