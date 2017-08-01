@@ -134,6 +134,7 @@ Scatter.prototype.draw = function(){
 
     d3.selectAll("g").remove(); //clear axises
     d3.selectAll("circle").remove(); //clear points
+    d3.selectAll("text").remove(); //clear labels
 
     svg.append("g")
     .attr("transform", "translate(0," + (height - margin) + ")")
@@ -142,6 +143,28 @@ Scatter.prototype.draw = function(){
     svg.append("g")
     .attr("transform", "translate(" + (margin) + ", " + 0 + ")")
     .call(d3.axisLeft(y));
+
+	svg.append("text")
+    	.attr("class", "title")
+    	.attr("text-anchor", "middle")
+    	.attr("x", width/2)
+    	.attr("y", margin/2)
+    	.text(this.title);
+
+    svg.append("text")
+    	.attr("class", "x label")
+    	.attr("text-anchor", "middle")
+    	.attr("x", width/2)
+    	.attr("y", height - margin/2)
+    	.text(this.xlabel);
+
+    svg.append("text")
+    	.attr("class", "y label")
+    	.attr("text-anchor", "end")
+    	.attr("transform", "rotate(-90)")
+    	.attr("x", -height/2)
+    	.attr("y", margin/2)
+    	.text(this.ylabel);
 
     var circle = svg.selectAll("circle")
     	.data(chart_data);
