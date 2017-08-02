@@ -3,9 +3,21 @@ function Scatter(){
 	this.xvector = null;
 	this.yvector = null;
 
-	this.xlabel = 'x axis';
-	this.ylabel = 'y axis';
-	this.title  = 'title';
+	this.xlabel = 'X axis';
+	this.ylabel = 'Y axis';
+	this.title  = 'Title';
+}
+Scatter.prototype.set_title = function(str){
+	this.title = str;
+	this.valid();
+}
+Scatter.prototype.set_xlabel = function(str){
+	this.xlabel = str;
+	this.valid();
+}
+Scatter.prototype.set_ylabel = function(str){
+	this.ylabel = str;
+	this.valid();
 }
 Scatter.prototype.valid = function() {
 	if (this.xvector.data != null && this.yvector.data != null) {
@@ -71,7 +83,7 @@ Scatter.prototype.draw = function(){
 
     svg.append("text")
     	.attr("class", "y label")
-    	.attr("text-anchor", "end")
+    	.attr("text-anchor", "middle")
     	.attr("transform", "rotate(-90)")
     	.attr("x", -height/2)
     	.attr("y", margin/2)
@@ -96,5 +108,9 @@ Scatter.prototype.clear = function() {
 Scatter.prototype.setup_chart = function() {
 	this.xvector = new DataVector("X Vector");
 	this.yvector = new DataVector("Y Vector");
+
+	text_input("Title", this.set_title);
+	text_input("X axis", this.set_xlabel);
+	text_input("Y axis", this.set_ylabel);
 
 };

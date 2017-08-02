@@ -75,9 +75,27 @@ function sl(l){
 	}
 	return select; 
 }
+function text_input(title, setter){
+	var param = document.getElementById('p3');
+	var text_field = document.createElement('input');
+	text_field.type = 'text';
+	text_field.value = title;
+	text_field.setter = setter;
+	param.appendChild(text_field);
+
+	text_field.oninput = function () {
+		this.setter.call(chart, this.value);
+	}	
+}
 //Clear p2 div
-function p2_clear(){
+function p_clear(){
 	var list = document.getElementById('p2');
+
+	while (list.hasChildNodes()) {   
+    	list.removeChild(list.firstChild);
+	}
+
+	var list = document.getElementById('p3');
 
 	while (list.hasChildNodes()) {   
     	list.removeChild(list.firstChild);
@@ -94,7 +112,7 @@ function table_clear(){
 function select_chart(){
 	var type = document.getElementById("type").value;
 
-	p2_clear();
+	p_clear();
 	table_clear();
 	if (chart != null) chart.clear();
 	chart = null;
@@ -102,9 +120,19 @@ function select_chart(){
 	if (type == "Scatter") {
 		chart = new Scatter();
 	}
+	if (type == "Map") {
+		error_msg();
+	}
+	if (type == "Bar") {
+		error_msg();
+	}
 	if (chart != null)
 		chart.setup_chart();
 }
 
+function error_msg(){
+	var p = document.getElementById('p2');
+		p.innerHTML = "This chart type isn't ready yet.";
+}
 
 

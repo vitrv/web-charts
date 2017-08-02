@@ -4,7 +4,7 @@ TODO:
 	
 	-add chart interactivity, (mouseover points) for clarity
 
-	-add titles and axis labels
+	~~-add titles and axis labels~~
 
 	-make a class diagram at some point
 
