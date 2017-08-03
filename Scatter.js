@@ -103,8 +103,6 @@ Scatter.prototype.clear = function() {
     d3.selectAll("circle").remove(); //clear points
     d3.selectAll("text").remove(); //clear labels
 }
-//function to set up scatterplot, need to prevent memory leaks?
-//need more elegant/intuitive param prompts at some point
 Scatter.prototype.setup_chart = function() {
 	this.xvector = new DataVector("X Vector");
 	this.yvector = new DataVector("Y Vector");

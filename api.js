@@ -1,5 +1,4 @@
 var labels = {};
-var chart = null;
 
 var createCORSRequest = function(method, url) {
 	var xhr = new XMLHttpRequest();

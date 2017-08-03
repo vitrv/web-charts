@@ -95,7 +95,7 @@ function p_clear(){
     	list.removeChild(list.firstChild);
 	}
 
-	var list = document.getElementById('p3');
+	list = document.getElementById('p3');
 
 	while (list.hasChildNodes()) {   
     	list.removeChild(list.firstChild);
@@ -111,10 +111,13 @@ function table_clear(){
 //Handler for chart select menu, entry point
 function select_chart(){
 	var type = document.getElementById("type").value;
-
+	
 	p_clear();
-	table_clear();
-	if (chart != null) chart.clear();
+	
+	if (chart != null) {
+		chart.clear(); 
+		table_clear();
+	}
 	chart = null;
 
 	if (type == "Scatter") {

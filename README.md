@@ -23,3 +23,5 @@ TODO:
 	-add option to scale chart
 
 	-make stuff look nicer (with jquery?)
+
+	-learn react and angular

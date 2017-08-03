@@ -15,5 +15,7 @@ for (var i = 0; i < chart_types.length; i++) {
 	select.add(option);
 }
 
+select.oninput = select_chart;
+
 alasql.options.cache = false;
 index_db();
