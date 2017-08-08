@@ -10,18 +10,14 @@ TODO:
 
 	-add support for time values
 
-	-support for uploaded data
-
-	-more robust data handling
+	-more robust data handling/uploading
 
 	-add support for multiple datasets
-
-	-add other kinds of charts
 
 	-add option to scale axes
 
 	-add option to scale chart
 
-	-make stuff look nicer (with jquery?)
+	-create nice graphical UI
 
-	-learn react and angular
+	-change components to use React

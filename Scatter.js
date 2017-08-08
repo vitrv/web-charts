@@ -1,33 +1,31 @@
 //scatterplot class
 function Scatter(){
-	this.xvector = null;
-	this.yvector = null;
+	this.xvector = new DataVector("X Vector");
+	this.yvector = new DataVector("Y Vector");
 
-	this.xlabel = 'X axis';
-	this.ylabel = 'Y axis';
-	this.title  = 'Title';
-}
-Scatter.prototype.set_title = function(str){
-	this.title = str;
-	this.valid();
-}
-Scatter.prototype.set_xlabel = function(str){
-	this.xlabel = str;
-	this.valid();
-}
-Scatter.prototype.set_ylabel = function(str){
-	this.ylabel = str;
-	this.valid();
+	this.title = new TextInput("Title");
+	this.xlabel = new TextInput("X axis");
+	this.ylabel = new TextInput("Y axis");
+
+	this.c_data = new FileRead();
 }
 Scatter.prototype.valid = function() {
+	if (this.c_data.content != null) {
+		var _data = this.c_data.content;
+		var m = [];
+		for (var key in _data[0]){
+			m.push(key);
+		}
+		chart.draw(m[0], m[1], _data);
+	}
+
 	if (this.xvector.data != null && this.yvector.data != null) {
-		chart.draw();
+		chart.preprocess();
 		return true;
 	}
 	return false;
 };
-
-Scatter.prototype.draw = function(){
+Scatter.prototype.preprocess = function() {
 
 	var xname = this.xvector.fieldname;
 	var yname = this.yvector.fieldname;
@@ -43,9 +41,14 @@ Scatter.prototype.draw = function(){
 	alasql("DROP TABLE xvector");
 	alasql("DROP TABLE yvector");
 
-	
-	draw_table(chart_data);
+	chart.draw(xname, yname, chart_data);
 
+
+}
+
+Scatter.prototype.draw = function(xname, yname, _data){
+
+    draw_table(_data);
 	var svg = d3.select('svg')
 			.attr("width", width)
 			.attr("height", height);
@@ -54,8 +57,8 @@ Scatter.prototype.draw = function(){
 	var x = d3.scaleLinear().range([margin, width - margin]);
 	var y = d3.scaleLinear().range([height - margin, margin]);
 
-	x.domain(d3.extent(chart_data, function(d) { return parseFloat(d[xname]); }));
-	y.domain(d3.extent(chart_data, function(d) { return parseFloat(d[yname]); }));
+	x.domain(d3.extent(_data, function(d) { return parseFloat(d[xname]); }));
+	y.domain(d3.extent(_data, function(d) { return parseFloat(d[yname]); }));
 
 	this.clear();
 
@@ -72,14 +75,14 @@ Scatter.prototype.draw = function(){
     	.attr("text-anchor", "middle")
     	.attr("x", width/2)
     	.attr("y", margin/2)
-    	.text(this.title);
+    	.text(this.title.label);
 
     svg.append("text")
     	.attr("class", "x label")
     	.attr("text-anchor", "middle")
     	.attr("x", width/2)
     	.attr("y", height - margin/2)
-    	.text(this.xlabel);
+    	.text(this.xlabel.label);
 
     svg.append("text")
     	.attr("class", "y label")
@@ -87,28 +90,19 @@ Scatter.prototype.draw = function(){
     	.attr("transform", "rotate(-90)")
     	.attr("x", -height/2)
     	.attr("y", margin/2)
-    	.text(this.ylabel);
+    	.text(this.ylabel.label);
 
     var circle = svg.selectAll("circle")
-    	.data(chart_data);
+    	.data(_data);
 
     circle.enter().append("circle")
     	.attr("r", 2.5)
     	.merge(circle)
-    	.attr("cx", function(d){return x( parseFloat(d[xname])) })
-    	.attr("cy", function(d){return y( parseFloat(d[yname])) });	
+    	.attr("cx", function(d){return x( parseFloat( d[xname]) ) })
+    	.attr("cy", function(d){return y( parseFloat( d[yname]) ) });	
 };
 Scatter.prototype.clear = function() {
 	d3.selectAll("g").remove(); //clear axises
     d3.selectAll("circle").remove(); //clear points
     d3.selectAll("text").remove(); //clear labels
 }
-Scatter.prototype.setup_chart = function() {
-	this.xvector = new DataVector("X Vector");
-	this.yvector = new DataVector("Y Vector");
-
-	text_input("Title", this.set_title);
-	text_input("X axis", this.set_xlabel);
-	text_input("Y axis", this.set_ylabel);
-
-};

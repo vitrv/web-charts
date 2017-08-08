@@ -75,21 +75,64 @@ function sl(l){
 	}
 	return select; 
 }
-function text_input(title, setter){
+//text input class
+function TextInput(title){
+	this.label = title;
 	var param = document.getElementById('p3');
 	var text_field = document.createElement('input');
 	text_field.type = 'text';
 	text_field.value = title;
-	text_field.setter = setter;
 	param.appendChild(text_field);
 
+	text_field.set = this.set;
+	text_field.link = this;
+
 	text_field.oninput = function () {
-		this.setter.call(chart, this.value);
-	}	
+		this.set.call(this.link, this.value);
+	};
 }
-//Clear p2 div
+
+TextInput.prototype.set = function(value){
+	this.label = value;
+	chart.valid();
+}
+
+//file upload class
+function FileRead(){
+	this.content = null;
+	var param = document.getElementById('p1');
+	var file_field = document.createElement('input');
+	file_field.type = 'file';
+	var link = this;
+	var set = this.set;
+	param.appendChild(file_field);
+
+	file_field.onchange = function () {
+		Array.prototype.forEach.call(this.files, function(file) {
+      		var reader = new FileReader();
+      		reader.onload = function() {
+                var c = d3.csvParse(reader.result);
+                set.call(link, c);
+      		};
+      		reader.readAsText(file);
+      	});	
+	};
+}
+
+FileRead.prototype.set = function(file){
+	this.content = file;
+	chart.valid();
+}
+
+//Clear p divs
 function p_clear(){
-	var list = document.getElementById('p2');
+	var list = document.getElementById('p1');
+
+	while (list.hasChildNodes()) {   
+    	list.removeChild(list.firstChild);
+	}
+
+	list = document.getElementById('p2');
 
 	while (list.hasChildNodes()) {   
     	list.removeChild(list.firstChild);
@@ -127,10 +170,8 @@ function select_chart(){
 		error_msg();
 	}
 	if (type == "Bar") {
-		error_msg();
+		chart = new Bar();
 	}
-	if (chart != null)
-		chart.setup_chart();
 }
 
 function error_msg(){
