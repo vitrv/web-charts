@@ -3,44 +3,67 @@
 	<head>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="http://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="key.js"></script>	
-		<script src="api.js"></script>	
-		<script src="Scatter.js"></script>
-		<script src="Bar.js"></script>
-		<script src="chartbase.js"></script>
+
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/grid.css">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script src="script/key.js"></script>	
+		<script src="script/api.js"></script>	
+		<script src="script/Scatter.js"></script>
+		<script src="script/Bar.js"></script>
+		<script src="script/chartbase.js"></script>
+
 	</head>
-	
+
 	<body>
-		
-		<div>
-			<form> 
-				<div>
-					<select id = "type">
-						<option>Chart Type</option>
-					</select>
-				</div>	
-				<br>
-				<div id= "p">
-					<div id = "p1"></div>
-					<div id = "p2"></div>
-					<br>
-					<div id = 'p3'></div>
-				</div>	
+		<div class="container">
+			<div class="row clearfix">
+				<div class="column full header"></div>
+			</div>
+			<div class="row clearfix">
 
-			</form>
+	  			<div class="column fourth">
+	    			<div class="card clearfix" id = "type">
+	    				<!--<select id = "type">
+							<option>Chart Type</option>
+						</select> -->
+	    			</div>
+	    			<div class="card">
+	    				<div id = "p1"></div>
+	    			</div>
+	    			<div class="card">
+	    				<div id = 'p2'></div>
+	    			</div>
+	    			<div class="card">
+	    				<div id = 'p3'></div>
+	    			</div>
+	  			</div>
+	  			<div class="column three-fourth">
+	  				<div class="row clearfix">
+	  					<div class="column full">
+	  						<div class="card">
+	  							<div id="msg"> </div>
+	  							<svg id="chart"></svg>
+	  						</div>
+	  					</div>
+  					</div>
+
+	  				<div class="row clearfix">
+	  					<div class="column full">
+	  						<div class="card" id="table"></div>
+	  					</div>
+	    			</div>
+  				</div>
+
+	    	</div>
+
+  			</div>
 		</div>
-
-		<p id="msg"></p>
-
-
-	    <svg id="chart"></svg>
-
-	    <div id="table"></div>
-	    
-		<script src="setup.js"></script>
+		<script src="script/setup.js"></script>
 	</body>
+
 	<footer>
 	</footer>
-
 </html>

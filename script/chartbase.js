@@ -143,6 +143,12 @@ function p_clear(){
 	while (list.hasChildNodes()) {   
     	list.removeChild(list.firstChild);
 	}
+
+		list = document.getElementById('msg');
+
+	while (list.hasChildNodes()) {   
+    	list.removeChild(list.firstChild);
+	}
 }
 function table_clear(){
 	var list = document.getElementById('table');
@@ -153,7 +159,7 @@ function table_clear(){
 }
 //Handler for chart select menu, entry point
 function select_chart(){
-	var type = document.getElementById("type").value;
+	var type = selected;
 	
 	p_clear();
 	
@@ -163,20 +169,22 @@ function select_chart(){
 	}
 	chart = null;
 
-	if (type == "Scatter") {
+	if (type == 0) {
 		chart = new Scatter();
 	}
-	if (type == "Map") {
-		error_msg();
-	}
-	if (type == "Bar") {
+
+	if (type == 1) {
 		chart = new Bar();
+	}
+
+	if (type > 1) {
+		error_msg();
 	}
 }
 
 function error_msg(){
-	var p = document.getElementById('p2');
-		p.innerHTML = "This chart type isn't ready yet.";
+	var p = document.getElementById('msg');
+		p.innerHTML = "This chart type isn't ready yet!";
 }
 
 

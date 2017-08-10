@@ -1,0 +1,92 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html { font-size: 100%;
+	margin: 0;
+	width: 100%;
+  height: 100%;
+}
+
+p {
+  float: left;
+  height: 5.4;
+  width: 29.3%;
+  margin: 2%;
+  text-align: center;
+  line-height: 3.6rem;
+  border-style: solid;
+  border-width: 0.4rem;
+  border-radius: 0.8rem;
+}
+
+.unimp {
+  color: #cacdd1;
+  border-color: #cacdd1; 
+}
+.sel{ 
+  color: #5d95ef;
+  border-color: #5d95ef;
+}
+.desel{
+  color: #a7aaaf;
+  border-color: #a7aaaf;
+}
+
+div, text, th, td, p {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.container {
+  margin: 0%;
+  width: 100%;
+}
+table{
+  min-width: 50%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+}
+
+@media (min-width: 40rem) {
+  .column {
+  	margin: 0%;
+  	min-height: 4rem;
+    float: left;
+  }
+
+  .card{
+    margin: 1%;
+    width: 98%;
+    min-height:10rem;
+    text-align: center;
+    border-style: dashed;
+    border-color: #466a75;
+  }
+  
+  .column.full { width: 100%; }
+  .column.two-thirds { width: 67.7%; }
+  .column.half { width: 50%; }
+  .column.third { width: 33.3%; }
+  .column.fourth { width: 25%; }
+  .column.three-fourth { width: 75%; }
+  .column.flow-opposite { float: right; }  
+  .header{ background-color: black;}
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
