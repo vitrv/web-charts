@@ -25,25 +25,32 @@
 			<div class="row clearfix">
 
 	  			<div class="column fourth">
-	    			<div class="card clearfix" id = "type">
-	    				<!--<select id = "type">
-							<option>Chart Type</option>
-						</select> -->
+	  				<button class="accordion">Graph Types</button>
+	    			<div class="card panel clearfix" id = "type">
 	    			</div>
-	    			<div class="card">
+
+	    			<button class="accordion">Data: CSV</button>
+	    			<div class="card panel clearfix">
+	    				<label  id = "fi" for="file">
+	    					CSV File</label>
 	    				<div id = "p1"></div>
+
 	    			</div>
-	    			<div class="card">
+
+	    			<button class="accordion">Data: REDCap</button>
+	    			<div class="card panel clearfix">
 	    				<div id = 'p2'></div>
 	    			</div>
-	    			<div class="card">
+
+	    			<button class="accordion">Graph Options</button>
+	    			<div class="card panel clearfix">
 	    				<div id = 'p3'></div>
 	    			</div>
 	  			</div>
 	  			<div class="column three-fourth">
 	  				<div class="row clearfix">
 	  					<div class="column full">
-	  						<div class="card">
+	  						<div class="card clearfix">
 	  							<div id="msg"> </div>
 	  							<svg id="chart"></svg>
 	  						</div>
@@ -51,8 +58,8 @@
   					</div>
 
 	  				<div class="row clearfix">
-	  					<div class="column full">
-	  						<div class="card" id="table"></div>
+	  					<div class="column full table">
+	  						<div class="card clearfix" id="table"></div>
 	  					</div>
 	    			</div>
   				</div>
@@ -65,5 +72,6 @@
 	</body>
 
 	<footer>
+
 	</footer>
 </html>

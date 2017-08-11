@@ -1,5 +1,3 @@
-var labels = {};
-
 var createCORSRequest = function(method, url) {
 	var xhr = new XMLHttpRequest();
 	if ("withCredentials" in xhr) {
@@ -39,7 +37,7 @@ function index_db() {
   				//labels.push(z);
   			}
   		}
-  		//console.log(labels);
+  		select_default();
 	};
 
 	xhr.onerror = function() {

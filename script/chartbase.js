@@ -48,7 +48,6 @@ DataVector.prototype.setup = function(){
     param.appendChild(sel);
     this.view_obj = sel;
     sel.pair = this;
-    
     sel.oninput = this.setdata;
 }
 DataVector.prototype.setdata = function(){
@@ -103,12 +102,19 @@ function FileRead(){
 	var param = document.getElementById('p1');
 	var file_field = document.createElement('input');
 	file_field.type = 'file';
+	file_field.className = "inputfile";
+	file_field.name = 'file';
+	file_field.id = 'file';
 	var link = this;
 	var set = this.set;
 	param.appendChild(file_field);
 
 	file_field.onchange = function () {
+		var filename = this.files[0].name;
+		var label = document.getElementById('fi');
+	    label.innerHTML = filename;
 		Array.prototype.forEach.call(this.files, function(file) {
+
       		var reader = new FileReader();
       		reader.onload = function() {
                 var c = d3.csvParse(reader.result);
@@ -180,6 +186,15 @@ function select_chart(){
 	if (type > 1) {
 		error_msg();
 	}
+}
+
+function select_default(){
+	chart= new Scatter();
+	chart.c_data.content = fib;
+	chart.title.label = "Example Graph!";
+	chart.xlabel.label = "n";
+	chart.ylabel.label = "f(n)";
+	chart.valid();
 }
 
 function error_msg(){

@@ -6,7 +6,6 @@
 html { font-size: 100%;
 	margin: 0;
 	width: 100%;
-  height: 100%;
 }
 
 p {
@@ -21,21 +20,27 @@ p {
   border-radius: 0.8rem;
 }
 
-.unimp {
-  color: #cacdd1;
-  border-color: #cacdd1; 
-}
 .sel{ 
-  color: #5d95ef;
-  border-color: #5d95ef;
+  color: #94b1e0;
+  border-color: #94b1e0;
+  
 }
 .desel{
   color: #a7aaaf;
   border-color: #a7aaaf;
 }
+.desel:hover{
+  color: #8b9dba;
+  border-color: #8b9dba;
+}
 
-div, text, th, td, p {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+div, text, th, td, p, button {
+    font-family: Helvetica;
+}
+
+p{
+  font-variant: small-caps;
+  font-size: 1.1rem;
 }
 
 .container {
@@ -44,6 +49,8 @@ div, text, th, td, p {
 }
 table{
   min-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 table, th, td {
     border: 1px solid black;
@@ -54,18 +61,72 @@ table, th, td {
 
 @media (min-width: 40rem) {
   .column {
+    width: 100%
   	margin: 0%;
   	min-height: 4rem;
     float: left;
   }
 
+  .icon {
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    stroke-width: 0;
+    fill: white;
+  }
+
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  button.accordion {
+    background-color: #eee;
+    color: #8ca5cc;
+    font-variant: small-caps;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+  div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border-left-style: dashed;
+    border-color: #5d95ef;
+  }
+button.accordion.active, button.accordion:hover {
+    background-color: #8ca5cc;
+    color: white;
+}
+  label {
+    padding: 0.6rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    background-color: #5d95ef;
+    display: inline-block;
+}
+  label:hover {
+    cursor: pointer;
+    background-color: #4980d8;
+}
   .card{
+    padding: 0rem;
     margin: 1%;
     width: 98%;
-    min-height:10rem;
     text-align: center;
-    border-style: dashed;
-    border-color: #466a75;
   }
   
   .column.full { width: 100%; }
