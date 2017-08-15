@@ -24,11 +24,8 @@ function index_db() {
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	xhr.onload = function() {
-		// Success code goes here.
 		console.log(xhr.status);
-		//console.log(xhr.responseText);
 		metadata = JSON.parse(xhr.responseText);
-		//console.log(metadata[0]);
 
 		for (var i in metadata){
 			if ( metadata[i]['field_type'] != "notes"){
@@ -41,8 +38,7 @@ function index_db() {
 	};
 
 	xhr.onerror = function() {
-  		// Error code goes here.
-  		console.log("error");
+  		console.log("Redcap data not available");
 	};
 
 	xhr.send(data);
@@ -59,9 +55,6 @@ function read_data(field_name, obj) {
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	xhr.onload = function() {
-		// Success code goes here.
-		//console.log(xhr.status);
-		//console.log(xhr.responseText);
 		records = JSON.parse(xhr.responseText);
 
 		obj.data = [];
@@ -74,12 +67,9 @@ function read_data(field_name, obj) {
   			}
   		}
   		chart.valid();
-  		//console.log(data_vector);
-  		//return data_vector;
 	};
 
 	xhr.onerror = function() {
-  		// Error code goes here.
   		console.log("error");
 	};
 

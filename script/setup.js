@@ -4,6 +4,7 @@ var select = document.getElementById('type');
 var chart = null;
 var labels = {};
 
+//fibonacci json, for reasons
 var fib = [{"n": 1, "fn": 1 },
 		   {"n": 2, "fn": 1 },
 		   {"n": 3, "fn": 2 },
@@ -16,8 +17,8 @@ var fib = [{"n": 1, "fn": 1 },
 		   {"n": 10, "fn": 55 }
 			];
 //canvas info
-var width = 500;
-var height= 500;
+var width = 600;
+var height= 600;
 var margin = 80;
 
 //Read in chart types to html
