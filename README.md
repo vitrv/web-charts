@@ -34,19 +34,12 @@ Defines the behavior of their respective chart type, including data manipulation
 
 ##Missing Features:
 	
-	*add chart interactivity, (mouseover points) for clarity
-
-	*add support for time values
-
-	*more robust data handling/uploading
-
-	*add support for multiple datasets
-
-	*add option to scale axes
-
-	*add option to scale chart
-
-	*adapt for other browsers
-
-	*example csv data for each graph
+*add chart interactivity, (mouseover points) for clarity
+*add support for time values
+*more robust data handling/uploading
+*add support for multiple datasets
+*add option to scale axes
+*add option to scale chart
+*adapt for other browsers
+*example csv data for each graph
 
