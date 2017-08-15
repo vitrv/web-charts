@@ -32,7 +32,7 @@ Defines the behavior of their respective chart type, including data manipulation
 
 
 
-##Missing Features:
+## Missing Features:
 	
 	* add chart interactivity, (mouseover points) for clarity
 	* add support for time values
