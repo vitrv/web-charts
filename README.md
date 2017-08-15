@@ -12,7 +12,7 @@ data from REDCap projects but will handle CSV data as well. Runs in Google Chrom
 ### setup.js
 
 All configurable program globals are included here as well as code to support the user interface. JavaScript begins
-executing here before waiting for user input.
+executing here before halting to wait for user input.
 
 ### api.js
 
@@ -25,6 +25,8 @@ if this app is ever hosted.
 
 ### chartbase.js
 
+Holds intermediate classes, like DataVector, component definitions, and support functions used by chart classes.
+
 ### Scatter.js/Bar.js
 	
 Defines the behavior of their respective chart type, including data manipulation and drawing instructions using the D3.js library
@@ -34,12 +36,12 @@ Defines the behavior of their respective chart type, including data manipulation
 
 ## Missing Features:
 	
-	* add chart interactivity, (mouseover points) for clarity
-	* add support for time values
-	* more robust data handling/uploading
-	* add support for multiple datasets
-	* add option to scale axes
-	* add option to scale chart
-	* adapt for other browsers
-	* example csv data for each graph
+* Add chart interactivity, (mouseover points) for clarity
+* Add support for time values
+* More robust data handling/uploading
+* Add support for multiple datasets
+* Add option to scale axes
+* Add option to scale chart
+* Adapt for other browsers
+* Show example csv data for each graph
 
