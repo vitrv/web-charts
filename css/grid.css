@@ -37,8 +37,20 @@ p {
   border-color: #8b9dba;
 }
 
-div, text, th, td, p, button {
+div, text, th, td, p, button, a {
     font-family: Helvetica;
+}
+a{
+  text-decoration: none;
+  color: white;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-style: italic;
+  font-size: 1.2rem;
+  letter-spacing: 0rem;
+}
+a:hover{
+  color: #CCC;
 }
 
 .container {
@@ -127,6 +139,9 @@ button.accordion.active, button.accordion:hover {
     margin: 1%;
     width: 98%;
     text-align: center;
+  }
+  .right{
+    text-align: right;
   }
   
   .column.full { width: 100%; }

@@ -44,4 +44,5 @@ Defines the behavior of their respective chart type, including data manipulation
 * Add option to scale chart
 * Adapt for other browsers
 * Show example csv data for each graph
+* Allow svg elements to be selected and customized individually and in groups
 
